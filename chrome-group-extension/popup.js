@@ -4,6 +4,8 @@ const GROUP_COLORS = [
   'purple', 'cyan', 'orange', 'grey'
 ];
 
+const i18n = (key, ...subs) => chrome.i18n.getMessage(key, subs);
+
 function setStatus(msg) {
   document.getElementById('status').textContent = msg;
 }
@@ -12,7 +14,7 @@ function setStatus(msg) {
  * 按完整 hostname 分组，e.g. dataset-management.evad.mioffice.cn
  */
 async function groupTabsByDomain() {
-  setStatus('处理中...');
+  setStatus(i18n('statusProcessing'));
 
   const tabs = await chrome.tabs.query({ currentWindow: true });
 
@@ -49,16 +51,16 @@ async function groupTabsByDomain() {
   }
 
   setStatus(groupCount > 0
-    ? `完成：已创建 ${groupCount} 个分组`
-    : '无域名重复的标签页，未创建分组'
+    ? i18n('statusGroupDone', String(groupCount))
+    : i18n('statusNoGroup')
   );
 }
 
 /**
- * 关闭重复域名的标签页，每个域名仅保留最新打开的一个（tab.id 最大）
+ * 关闭重复标签页，每个完整 URL 仅保留最新打开的一个（tab.id 最大）
  */
 async function closeTabsByDomain() {
-  setStatus('处理中...');
+  setStatus(i18n('statusProcessing'));
 
   const tabs = await chrome.tabs.query({ currentWindow: true });
 
@@ -74,7 +76,6 @@ async function closeTabsByDomain() {
   const toClose = [];
   for (const [, tabList] of urlMap) {
     if (tabList.length < 2) continue;
-    // id 最大 = 最新打开
     const newest = tabList.reduce((a, b) => (a.id > b.id ? a : b));
     for (const tab of tabList) {
       if (tab.id !== newest.id) toClose.push(tab.id);
@@ -82,26 +83,32 @@ async function closeTabsByDomain() {
   }
 
   if (toClose.length === 0) {
-    setStatus('无重复域名的标签页');
+    setStatus(i18n('statusNoDuplicate'));
     return;
   }
 
   await chrome.tabs.remove(toClose);
-  setStatus(`已关闭 ${toClose.length} 个重复标签页`);
+  setStatus(i18n('statusClosedDuplicate', String(toClose.length)));
 }
 
 /**
  * 解散当前窗口所有 group
  */
 async function ungroupAll() {
-  setStatus('解散中...');
+  setStatus(i18n('statusUngrouping'));
   const tabs = await chrome.tabs.query({ currentWindow: true });
   const validIds = tabs.map(t => t.id).filter(Boolean);
   if (validIds.length) {
     await chrome.tabs.ungroup(validIds).catch(() => {});
   }
-  setStatus('已解散所有分组');
+  setStatus(i18n('statusUngroupDone'));
 }
+
+// 初始化 UI 文案
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  const msg = i18n(el.dataset.i18n);
+  if (msg) el.textContent = msg;
+});
 
 document.getElementById('groupBtn').addEventListener('click', groupTabsByDomain);
 document.getElementById('dedupeBtn').addEventListener('click', closeTabsByDomain);

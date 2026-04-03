@@ -1,15 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "chrome-group-extension",
+  "name": "__MSG_extName__",
   "version": "1.0.0",
-  "description": "按域名聚合当前窗口的所有标签页为 Tab Group",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "permissions": [
     "tabs",
     "tabGroups"
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "按域名分组标签页",
+    "default_title": "__MSG_defaultTitle__",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

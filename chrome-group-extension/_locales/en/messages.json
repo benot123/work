@@ -1,0 +1,50 @@
+{
+  "extName": {
+    "message": "Tab Domain Grouper"
+  },
+  "extDescription": {
+    "message": "Group all tabs in the current window by domain into Tab Groups"
+  },
+  "defaultTitle": {
+    "message": "Group tabs by domain"
+  },
+  "popupTitle": {
+    "message": "Tab Domain Grouper"
+  },
+  "groupBtn": {
+    "message": "Group Tabs by Domain"
+  },
+  "dedupeBtn": {
+    "message": "Close Duplicate Tabs (Keep Latest)"
+  },
+  "ungroupBtn": {
+    "message": "Ungroup All"
+  },
+  "statusProcessing": {
+    "message": "Processing..."
+  },
+  "statusGroupDone": {
+    "message": "Done: $COUNT$ group(s) created",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "statusNoGroup": {
+    "message": "No duplicate domains found, no groups created"
+  },
+  "statusNoDuplicate": {
+    "message": "No duplicate tabs found"
+  },
+  "statusClosedDuplicate": {
+    "message": "Closed $COUNT$ duplicate tab(s)",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "statusUngrouping": {
+    "message": "Ungrouping..."
+  },
+  "statusUngroupDone": {
+    "message": "All groups dissolved"
+  }
+}

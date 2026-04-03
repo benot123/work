@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <title>按域名分组</title>
+  <title>Tab Grouper</title>
   <style>
     body {
       width: 240px;
@@ -31,19 +31,19 @@
     #groupBtn:hover {
       background: #1558b0;
     }
-    #ungroupBtn {
-      background: #f1f3f4;
-      color: #555;
-    }
-    #ungroupBtn:hover {
-      background: #e0e0e0;
-    }
     #dedupeBtn {
       background: #e8f0fe;
       color: #1a73e8;
     }
     #dedupeBtn:hover {
       background: #d2e3fc;
+    }
+    #ungroupBtn {
+      background: #f1f3f4;
+      color: #555;
+    }
+    #ungroupBtn:hover {
+      background: #e0e0e0;
     }
     #status {
       margin-top: 8px;
@@ -54,10 +54,10 @@
   </style>
 </head>
 <body>
-  <h3>Tab 域名分组</h3>
-  <button id="groupBtn">按域名分组标签页</button>
-  <button id="dedupeBtn">关闭重复标签页（保留最新）</button>
-  <button id="ungroupBtn">解散所有分组</button>
+  <h3 data-i18n="popupTitle"></h3>
+  <button id="groupBtn" data-i18n="groupBtn"></button>
+  <button id="dedupeBtn" data-i18n="dedupeBtn"></button>
+  <button id="ungroupBtn" data-i18n="ungroupBtn"></button>
   <div id="status"></div>
   <script src="popup.js"></script>
 </body>
